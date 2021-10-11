@@ -19,6 +19,13 @@ namespace IMPLIEDSOULS.InfiniteRunner
         private PlayerModel playerModel;
         #endregion
 
+        #region Components
+        private Transform pos;
+        private Vector3 lastPosition;
+        #endregion
+
+        public float totalDistance = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -27,6 +34,12 @@ namespace IMPLIEDSOULS.InfiniteRunner
         private void Start()
         {
             CreatePlayer();
+            //CalculateDistance();
+        }
+
+        private void Update()
+        {
+            CalculateDistance();
         }
 
         public PlayerController CreatePlayer()
@@ -38,10 +51,32 @@ namespace IMPLIEDSOULS.InfiniteRunner
             return playerController;
         }
 
+        //returns player model to caller
+        public PlayerModel GetPlayerModel()
+        {
+            return playerModel;
+        }
+
+        //return player position to the caller
+        public Transform PlayerPos()
+        {
+            pos = this.transform;
+            return pos;
+        }
+
+        //player controller reference
         public void SetPlayerController(PlayerController _playerController)
         {
             playerController = _playerController;
         }
 
+        //calculates distance in meters
+        public void CalculateDistance()
+        {
+            float distance = Vector3.Distance(lastPosition, transform.position);
+            totalDistance += distance;
+            lastPosition = transform.position;
+            GameManager.Instance.DisplayDistanceText();
+        }
     }
 }

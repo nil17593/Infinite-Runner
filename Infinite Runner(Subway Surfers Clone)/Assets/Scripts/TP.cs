@@ -7,14 +7,13 @@ namespace IMPLIEDSOULS.InfiniteRunner
     {
 
         //public enum ActiveSide { Left,Mid,Right,}
-
         //[SerializeField] private ActiveSide side = ActiveSide.Mid;
         //private Rigidbody rigidbody;
         //[SerializeField] private float speed;
         ////[SerializeField] private Transform transform;
         //private float newXPos = 0f;
         //private bool leftSwipe;
-        //private bool rightSwipe;
+        //private bool rightSwipe; 
         //[SerializeField] private float valueOnXaxis;
         ////private CharacterController characterController;
 
@@ -81,27 +80,72 @@ namespace IMPLIEDSOULS.InfiniteRunner
         //}
 
 
-        [SerializeField] private Rigidbody rb;
-        [SerializeField] private float xAxisForce, yAxisForce, downyAxis;
-        [SerializeField] private float speed;
+        //[SerializeField] private Rigidbody rigidbody;
+        //[SerializeField] private float xAxisForce, yAxisForce, downyAxis;
+        //[SerializeField] private float speed;
+        //[SerializeField] private float JumpForce;
         Vector3 forwardMove;
+        Vector3 horizontalMove;
+        Vector3 verticalMove;
+        //public float horizontalInput;
+        //public float verticalInput;
         //[SerializeField] GameObject gameOver;
         bool leftKey, rightKey;
-
+        Touch touch;
+        float xPos;
+        public Transform player;
 
         private void Update()
         {
-            leftKey = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
-            rightKey = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
+            if (Input.touchCount > 0)
+            {
+                touch = Input.GetTouch(0);
+            }
+            if (touch.deltaPosition.x > 0 && touch.phase == TouchPhase.Ended)
+            {
+                xPos = 2f;
+            }
+            if (touch.deltaPosition.x < 0 && touch.phase == TouchPhase.Ended)
+            {
+                xPos = -2f;
+            }
+            player.position = new Vector3(xPos, player.position.y, player.position.z);
+            //leftKey = Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow);
+            //rightKey = Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow);
 
         }
         void FixedUpdate()
         {
-            forwardMove = transform.forward * speed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + forwardMove);
-            //rb.AddForce(0, 0, forwardForce * Time.deltaTime);
-            //Movement();
-            Jump();
+            //ForwardMovement();
+            //PlayerMovement();
+            //Jump();
+        }
+        public void ForwardMovement()
+        {
+            //forwardMove = speed * Time.fixedDeltaTime * transform.forward;
+            //rigidbody.MovePosition(rigidbody.position + forwardMove);
+        }
+
+        public void PlayerMovement()
+        {
+            if (Input.touchCount > 0)
+            {
+                touch = Input.GetTouch(0);
+            }
+            if (touch.deltaPosition.x > 0 && touch.phase == TouchPhase.Ended)
+            {
+                xPos = 2f;
+            }
+            if (touch.deltaPosition.x < 0 && touch.phase == TouchPhase.Ended)
+            {
+                xPos = -2f;
+            }
+        }
+
+        public void Jump()
+        {
+            //verticalMove = verticalInput * JumpForce * Time.fixedDeltaTime * transform.up;
+            //rigidbody.MovePosition(rigidbody.position + verticalMove);
         }
         //void Movement()
         //{
@@ -140,17 +184,17 @@ namespace IMPLIEDSOULS.InfiniteRunner
         //    //}
         //}
 
-        void Jump()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.AddForce(0, yAxisForce * Time.deltaTime, 0, ForceMode.VelocityChange);
-            }
-            else if (Input.GetKeyUp(KeyCode.Space))
-            {
-                rb.AddForce(0, downyAxis * Time.deltaTime, 0, ForceMode.Impulse);
-            }
-        }
+        //void Jump()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.Space))
+        //    {
+        //        rb.AddForce(0, yAxisForce * Time.deltaTime, 0, ForceMode.VelocityChange);
+        //    }
+        //    else if (Input.GetKeyUp(KeyCode.Space))
+        //    {
+        //        rb.AddForce(0, downyAxis * Time.deltaTime, 0, ForceMode.Impulse);
+        //    }
+        //}
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using TMPro;
 
 namespace IMPLIEDSOULS.InfiniteRunner
 {
@@ -9,37 +10,35 @@ namespace IMPLIEDSOULS.InfiniteRunner
         private PlayerController playerController;
         #endregion
 
-        private float horizontalInput;
-        private float verticalInput;
-        private float speed, movement;
-        private float input;
-        Vector3 horizontalMovement;
-
-
-        private void Update()
-        {
-            MovementInputs();
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            verticalInput = Input.GetAxisRaw("Vertical");
-        }
+        #region Serialized fields
+        [SerializeField] private Transform player;
+        #endregion
 
         private void FixedUpdate()
         {
             playerController.ForwardMovement(playerController.PlayerModel.Speed);
-            playerController.PlayerMovement();
             playerController.Jump();
-
+            playerController.LaneChanger();
         }
 
-        private void MovementInputs()
+        private void Update()
         {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            verticalInput = Input.GetAxisRaw("Vertical");
+            if (transform.position.y < -3)
+            {
+                Die();
+            }
         }
 
         public void SetPlayerController(PlayerController _playerController)
         {
             playerController = _playerController;
+        }
+
+        //player will die after falling from ground
+        void Die()
+        {
+            this.gameObject.SetActive(false);
+            GameManager.Instance.PlayerDiePanel();
         }
     }
 }

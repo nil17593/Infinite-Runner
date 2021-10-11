@@ -1,41 +1,43 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace IMPLIEDSOULS.InfiniteRunner
 {
-
-    [SerializeField] private Transform target;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float smoothFactor;
-    private Transform playerLastPos;
-    public static CameraController Instance;
-    void FollowPlayer()
+    public class CameraController : MonoSingletonGeneric<CameraController>
     {
-        if (target != null)
-        {
-            Vector3 targetPosition = target.position + offset;
-            //Debug.Log("pos: " + target.position);
-            Vector3 smoothedposition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
-            transform.position = targetPosition;
-            playerLastPos = target;
-        }
-    }
+        [SerializeField] private Transform target;
+        [SerializeField] private Vector3 offset;
+        [SerializeField] private float smoothFactor;
+        //private Transform playerLastPos;
+        private PlayerView player;
 
-    private void LateUpdate()
-    {
-        FollowPlayer();
-    }
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+        void FollowPlayer()
+        {
+            //target = player.GetPlayerTransform();
+            if (target != null)
+            {
+                Vector3 targetPosition = target.position + offset;
+                Vector3 smoothedposition = Vector3.Lerp(transform.position, targetPosition, smoothFactor * Time.deltaTime);
+                transform.position = targetPosition;
+            }
+        }
 
-    public void SetTarget(Transform target)
-    {
-        if (target != null)
+        private void LateUpdate()
         {
-            this.target = target;
+            FollowPlayer();
         }
-        else
+
+        public void SetTarget(Transform target)
         {
-            target = playerLastPos;
+            if (target != null)
+            {
+                this.target = target;
+            }
+            Debug.Log(target);
         }
-        Debug.Log("target");
     }
 }

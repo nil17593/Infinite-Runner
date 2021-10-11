@@ -15,4 +15,5 @@ MonoBehaviour:
   PlayerView: {fileID: 4547338273783544427, guid: c0c02394dc9b3fa479bbfa830d5736b1,
     type: 3}
   Speed: 10
-  JumpForce: 10
+  HorizontalMovSpeed: 100
+  JumpForce: 200
