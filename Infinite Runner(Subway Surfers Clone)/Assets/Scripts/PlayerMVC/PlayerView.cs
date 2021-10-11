@@ -10,6 +10,10 @@ namespace IMPLIEDSOULS.InfiniteRunner
         private PlayerController playerController;
         #endregion
 
+        #region Properties
+        public PlayerModel PlayerModel { get; }
+        #endregion
+
         #region Serialized fields
         [SerializeField] private Transform player;
         #endregion
@@ -19,6 +23,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
             playerController.ForwardMovement(playerController.PlayerModel.Speed);
             playerController.Jump();
             playerController.LaneChanger();
+            playerController.SpeedBooster();
         }
 
         private void Update()
@@ -27,6 +32,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
             {
                 Die();
             }
+
         }
 
         public void SetPlayerController(PlayerController _playerController)
@@ -39,6 +45,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
         {
             this.gameObject.SetActive(false);
             GameManager.Instance.PlayerDiePanel();
+            playerController.DeSubscribeEvent();
         }
     }
 }

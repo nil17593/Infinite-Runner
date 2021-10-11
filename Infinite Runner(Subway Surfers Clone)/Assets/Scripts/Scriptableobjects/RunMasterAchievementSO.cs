@@ -14,6 +14,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
         {
             public RunAchievementType runAchievementType;
             public int requirement;
+            public float distancerequirement;
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScriptableObject_NewCoinsCollectAchievementSO
   m_EditorClassIdentifier: 
   coinscollectedArray:
-  - coinsAchiementType: 1
+  - coinsAchiementType: 0
     requirement: 1
-  - coinsAchiementType: 2
-    requirement: 2
+  - coinsAchiementType: 1
+    requirement: 10

@@ -21,9 +21,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
 
     public enum CoinsAchiementType
     {
-        None,
-        Commando,
-        Prediator,
-        DeathBringer
+        Collecter,
+        Gainer,
     }
 }

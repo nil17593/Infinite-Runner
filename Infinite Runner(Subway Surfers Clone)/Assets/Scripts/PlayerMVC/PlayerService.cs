@@ -16,15 +16,13 @@ namespace IMPLIEDSOULS.InfiniteRunner
 
         #region References of other scripts
         private PlayerController playerController;
-        private PlayerModel playerModel;
+        private PlayerModel currentplayerModel;
         #endregion
 
         #region Components
         private Transform pos;
         private Vector3 lastPosition;
         #endregion
-
-        public float totalDistance = 0;
 
         protected override void Awake()
         {
@@ -39,7 +37,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
 
         private void Update()
         {
-            CalculateDistance();
+            //CalculateDistance();
         }
 
         public PlayerController CreatePlayer()
@@ -47,6 +45,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
             PlayerScriptableObject player = playerScriptableObject;
             PlayerView = playerScriptableObject.PlayerView;
             PlayerModel playerModel = new PlayerModel(playerScriptableObject);
+            currentplayerModel = playerModel;
             playerController = new PlayerController(playerModel, PlayerView);
             return playerController;
         }
@@ -54,7 +53,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
         //returns player model to caller
         public PlayerModel GetPlayerModel()
         {
-            return playerModel;
+            return currentplayerModel;
         }
 
         //return player position to the caller
@@ -74,7 +73,6 @@ namespace IMPLIEDSOULS.InfiniteRunner
         public void CalculateDistance()
         {
             float distance = Vector3.Distance(lastPosition, transform.position);
-            totalDistance += distance;
             lastPosition = transform.position;
             GameManager.Instance.DisplayDistanceText();
         }

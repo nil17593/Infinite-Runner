@@ -10,25 +10,19 @@ namespace IMPLIEDSOULS.InfiniteRunner
     /// </summary>
     public class CoinsController : MonoBehaviour
     {
-        public PlayerModel PlayerModel { get; private set; }
+        public PlayerModel PlayerModel { get; set; }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.GetComponent<PlayerView>() != null)
             {
-                UpdateCoinsCounter();
-                AchievementService.Instance.InvokeOnCoinAchievemt();
-                GameManager.Instance.UpdateCoinsText();
+                PlayerService.Instance.GetPlayerModel().CoinsCollected += 1;
+                AchievementService.Instance.GetAchievementController().CheckForCoinAchievement();
+                //AchievementService.Instance.InvokeOnCoinAchievemt();
+                GameManager.Instance.UpdateCoinsText(1);
                 Debug.Log(GameManager.Instance);
                 gameObject.SetActive(false);
             }
-        }
-
-        public void UpdateCoinsCounter()
-        {
-            Debug.Log("ala");
-            PlayerModel.CoinsCollected += 1;
-            AchievementService.Instance.GetAchievementController().CheckForCoinAchievement();
         }
     }
 }

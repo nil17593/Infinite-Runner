@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IMPLIEDSOULS.InfiniteRunner
 {
-    public class GroundSpawner : MonoBehaviour
+    public class GroundSpawner : MonoSingletonGeneric<GroundSpawner>
     {
         #region Serialized fields
         [SerializeField] private GameObject[] groundTiles;
@@ -25,6 +25,11 @@ namespace IMPLIEDSOULS.InfiniteRunner
         private List<GameObject> tilesList;
         #endregion
 
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         void Start()
         {
@@ -61,6 +66,11 @@ namespace IMPLIEDSOULS.InfiniteRunner
         {
             Destroy(tilesList[0]);
             tilesList.RemoveAt(0); 
+        }
+
+        public void TileLastPos()
+        {
+
         }
         //public void ChangeTilePos()
         //{

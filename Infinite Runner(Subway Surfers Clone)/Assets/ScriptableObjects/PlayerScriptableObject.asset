@@ -16,4 +16,4 @@ MonoBehaviour:
     type: 3}
   Speed: 10
   HorizontalMovSpeed: 100
-  JumpForce: 200
+  JumpForce: 100

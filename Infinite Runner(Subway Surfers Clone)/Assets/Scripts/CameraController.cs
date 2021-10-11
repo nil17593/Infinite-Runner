@@ -8,13 +8,14 @@ namespace IMPLIEDSOULS.InfiniteRunner
         [SerializeField] private Transform target;
         [SerializeField] private Vector3 offset;
         [SerializeField] private float smoothFactor;
-        //private Transform playerLastPos;
         private PlayerView player;
 
         protected override void Awake()
         {
             base.Awake();
         }
+
+        //camera will follow player
         void FollowPlayer()
         {
             //target = player.GetPlayerTransform();
@@ -31,6 +32,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
             FollowPlayer();
         }
 
+        //sets target to follow for camera
         public void SetTarget(Transform target)
         {
             if (target != null)
