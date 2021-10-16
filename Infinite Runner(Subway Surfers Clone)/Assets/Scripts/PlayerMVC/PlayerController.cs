@@ -55,7 +55,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
         //player will change lanes
         public void LaneChanger()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D) || SwipeManager.swipeRight)
             {
                 horizontalMove = PlayerModel.HorizontalMoveSpeed * Time.fixedDeltaTime * PlayerView.transform.right;
                 rigidbody.MovePosition(rigidbody.position + horizontalMove);
@@ -65,7 +65,7 @@ namespace IMPLIEDSOULS.InfiniteRunner
                     laneNumber = 2;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) || SwipeManager.swipeLeft)
             {
                 horizontalMove = PlayerModel.HorizontalMoveSpeed * Time.fixedDeltaTime * -PlayerView.transform.right;
                 rigidbody.MovePosition(rigidbody.position + horizontalMove);
@@ -75,12 +75,13 @@ namespace IMPLIEDSOULS.InfiniteRunner
                     laneNumber = 0;
                 }
             }
+
         }
 
         //player jump
         public void Jump()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || SwipeManager.swipeUp)
             {
                 verticalMove = PlayerModel.JumpForce * Time.fixedDeltaTime * PlayerView.transform.up;
                 rigidbody.MovePosition(rigidbody.position + verticalMove);
